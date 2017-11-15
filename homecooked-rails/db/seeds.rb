@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Dinner.create([
+  (
+    starts_at: '2017-11-15 19:30:00',
+    location: '490 West End Ave',
+    host_id: 1
+  ),
+  (
+    starts_at: '2017-12-15 19:00:00',
+    location: '490 West End Ave',
+    host_id: 1
+  ),
+  (
+    starts_at: '2017-13-15 19:00:00',
+    location: '490 West End Ave',
+    host_id: 1
+  )
+  ])
