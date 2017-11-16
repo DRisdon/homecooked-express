@@ -3,6 +3,8 @@ class User < ApplicationRecord
  has_many :hosted_dinners, class_name: "Dinner", foreign_key: "host_id"
  has_many :attendee_dinners, foreign_key: "attendee_id"
  has_many :attended_dinners, through: :attendee_dinners, source: :dinner
+ has_many :invites, foreign_key: "invited_id"
+ has_many :invited_dinners, through: :invites, source: :dinner
   # we want the user to have an encrypted password
  has_secure_password
 
