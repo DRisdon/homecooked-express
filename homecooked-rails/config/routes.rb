@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/dinners/attending", to: "dinners#index_attending"
   get "/dinners/:id", to: "dinners#show"
   post "/dinners", to: "dinners#create"
-  post "/dinners/:id/attendees", to: "dinners#invite_attendee"
+  post "/dinners/:id/accept", to: "dinners#accept"
+  post "/dinners/:id/invite", to: "dinners#invite"
 
 end
