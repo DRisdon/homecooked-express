@@ -12,5 +12,8 @@ Rails.application.routes.draw do
   post "/dinners", to: "dinners#create"
   post "/dinners/:id/accept", to: "dinners#accept"
   post "/dinners/:id/invite", to: "dinners#invite"
+  delete "/dinners/:id", to: "dinners#delete"
+  delete "/dinners/:id/invites/:user_id", to: "dinners#remove_invite"
+  delete "/dinners/:id/attendees/:user_id", to: "dinners#remove_attendee"
 
 end
