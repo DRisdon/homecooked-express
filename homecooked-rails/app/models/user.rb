@@ -35,7 +35,8 @@ class User < ApplicationRecord
      :name => self.name,
      :email => self.email,
      :token => self.auth_token,
-     :id => self.id
+     :id => self.id,
+     :avatar => self.avatar
    }
  end
 

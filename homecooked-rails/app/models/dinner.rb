@@ -8,4 +8,13 @@ class Dinner < ApplicationRecord
   validates :starts_at, presence: true
   validates :location, presence: true
   validates :host_id, presence: true
+
+  def all_info
+    {
+      :info => self,
+      :host => self.host,
+      :attendees => self.attendees,
+    }
+  end
+
 end

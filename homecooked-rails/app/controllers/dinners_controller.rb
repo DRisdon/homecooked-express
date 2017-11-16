@@ -1,58 +1,74 @@
 class DinnersController < ApplicationController
   before_action :require_token
 
+  # get all dinners the user is hosting or attending
   def index
     puts "user: #{@current_user.json_hash[:id]}"
-    @hosted_dinners = @current_user.hosted_dinners
-    @attended_dinners = @current_user.attended_dinners
+    hosted_dinners = []
+    attended_dinners = []
+    @hosted_dinners = @current_user.hosted_dinners.each do |dinner|
+      hosted_dinners << dinner.all_info
+    end
+    @attended_dinners = @current_user.attended_dinners.each do |dinner|
+      attended_dinners << dinner.all_info
+    end
     render json: {
-      hosting: @hosted_dinners,
-      atending: @attended_dinners
+      hosting: hosted_dinners,
+      attending: attended_dinners
     }
   end
 
+  # get all dinners the user is hosting
   def index_hosting
     puts "user: #{@current_user.json_hash[:id]}"
+    dinners = []
     @dinners = @current_user.hosted_dinners
-    render json: @dinners
+    @dinners.each do |dinner|
+      dinners << dinner.all_info
+    end
+    render json: dinners
   end
 
+  # get all dinners the user is attending
   def index_attending
     puts "user: #{@current_user.json_hash[:id]}"
+    dinners = []
     @dinners = @current_user.attended_dinners
-    render json: @dinners
+    @dinners.each do |dinner|
+      dinners << dinner.all_info
+    end
+    render json: dinners
   end
 
+  # get all dinners the user has been invited to
+  def index_invites
+    puts "user: #{@current_user.json_hash[:id]}"
+    dinners = []
+    @dinners = @current_user.invited_dinners
+    @dinners.each do |dinner|
+      dinners << dinner.all_info
+    end
+    render json: dinners
+  end
+
+  # get a single dinner
   def show
     puts "user: #{@current_user.json_hash[:id]}"
     @dinner = @current_user.hosted_dinners.find_by(id: params[:id])
     @dinner ||= @current_user.attended_dinners.find_by(id: params[:id])
     @dinner ||= @current_user.invited_dinners.find_by(id: params[:id])
     if @dinner
-      puts @dinner
-      @attendees = @dinner.attendees
-      @invited = @dinner.invited
-      @host = @dinner.host
-      render json: {
-        info: @dinner,
-        host: {
-          id: @host.id,
-          name: @host.name,
-          email: @host.email,
-          avatar: @host.avatar
-        },
-        attendees: @attendees.select(:id, :name, :email, :avatar),
-        invited: @invited.select(:id, :name, :email, :avatar)
-      }
+      render :json => @dinner.all_info
     end
   end
 
+  # add a new dinner
   def create
     @dinner = Dinner.new(dinner_params)
     @dinner.host_id = @current_user.json_hash[:id]
     if @dinner.valid?
       @dinner.save
-      render json: @dinner
+      render json: @dinner.all_info
     else
       puts @dinner.errors.messages.inspect
       render status: :bad_request, json:       {
@@ -61,6 +77,14 @@ class DinnersController < ApplicationController
     end
   end
 
+  # update a dinner
+  def update
+    @dinner = Dinner.find(params[:id])
+    @dinner.update(dinner_params)
+    render :json => @dinner.all_info
+  end
+
+  # invite another user to a dinner
   def invite
     @invite = Invite.new
     @invite.invited_id = params[:invited_id]
@@ -76,6 +100,7 @@ class DinnersController < ApplicationController
     end
   end
 
+  # accept an invite the user has recieved
   def accept
     @invite = Invite.find_by(dinner_id: params[:id], invited_id: @current_user.json_hash[:id])
     if @invite
@@ -95,18 +120,21 @@ class DinnersController < ApplicationController
     end
   end
 
+  # remove a user from a dinner
   def remove_attendee
     @attendee = Dinner.find(params[:id]).attendee_dinners.find_by(attendee_id: params[:user_id])
     @attendee.delete
     render json: { message: 'user removed from dinner' }
   end
 
+  # remove an invited but uncomfirmed user from a dinner
   def remove_invite
     @invited = Dinner.find(params[:id]).invites.find_by(invited_id: params[:user_id])
     @invited.delete
     render json: { message: 'user uninvited' }
   end
 
+  # delete a dinner
   def delete
     @dinner = Dinner.find(params[:id])
     @dinner.delete

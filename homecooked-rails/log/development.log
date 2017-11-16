@@ -3729,3 +3729,1260 @@ Processing by DinnersController#show as */*
 Completed 204 No Content in 51ms (ActiveRecord: 9.0ms)
 
 
+Started GET "/dinners/?auth_token=EbpDK5rVqQvfKeoMmuzV5D26" for 127.0.0.1 at 2017-11-16 14:34:24 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"EbpDK5rVqQvfKeoMmuzV5D26"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "EbpDK5rVqQvfKeoMmuzV5D26"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 87ms (Views: 33.4ms | ActiveRecord: 9.9ms)
+
+
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (226.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_development"[0m
+  [1m[35m (216.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_test"[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (21.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20171114183350)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (21.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "password_digest" character varying, "email" character varying, "avatar" character varying, "auth_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_auth_token" ON "users"  ("auth_token")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114183350"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAttendeeDinners (20171114235523)
+  [1m[35m (6.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE "attendee_dinners" ("id" bigserial primary key, "attendee_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114235523"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDinners (20171115160932)
+  [1m[35m (6.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.6ms)[0m  [1m[35mCREATE TABLE "dinners" ("id" bigserial primary key, "starts_at" timestamp, "location" character varying, "host_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171115160932"]]
+  [1m[35m (5.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateInvites (20171116160734)
+  [1m[35m (6.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (18.2ms)[0m  [1m[35mCREATE TABLE "invites" ("id" bigserial primary key, "invited_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116160734"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-11-16 19:35:57.710770"], ["updated_at", "2017-11-16 19:35:57.710770"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users" for 127.0.0.1 at 2017-11-16 14:36:11 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "user"=>{"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com"}}
+Unpermitted parameter: :user
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Daniel Risdon"], ["password_digest", "$2a$10$sGyL6AHFtDzwa3cjdSvhzuXCLOHFDGMGQid.mx7y4rrQFzvE3gg76"], ["email", "drisdon07@gmail.com"], ["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["created_at", "2017-11-16 19:36:11.621194"], ["updated_at", "2017-11-16 19:36:11.621194"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 89ms (Views: 0.4ms | ActiveRecord: 13.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-11-16 14:36:28 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "user"=>{"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com"}}
+Unpermitted parameter: :user
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Pippa Kelmenson"], ["password_digest", "$2a$10$A82HCGN4cgF1rMiiTDrbbOP3iSos1WPZOxJlGVW1jhRji8oJUhm5W"], ["email", "pippa.kelmenson@gmail.com"], ["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["created_at", "2017-11-16 19:36:29.049660"], ["updated_at", "2017-11-16 19:36:29.049660"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 83ms (Views: 0.2ms | ActiveRecord: 6.7ms)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-15 19:30:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.057851"], ["updated_at", "2017-11-16 19:36:46.057851"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-16 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.069129"], ["updated_at", "2017-11-16 19:36:46.069129"]]
+  [1m[35m (12.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-17 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.085747"], ["updated_at", "2017-11-16 19:36:46.085747"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-18 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.089570"], ["updated_at", "2017-11-16 19:36:46.089570"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-19 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.093016"], ["updated_at", "2017-11-16 19:36:46.093016"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-20 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.096389"], ["updated_at", "2017-11-16 19:36:46.096389"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-21 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 19:36:46.099382"], ["updated_at", "2017-11-16 19:36:46.099382"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 1], ["created_at", "2017-11-16 19:36:46.116296"], ["updated_at", "2017-11-16 19:36:46.116296"]]
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 4], ["created_at", "2017-11-16 19:36:46.128346"], ["updated_at", "2017-11-16 19:36:46.128346"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mInvite Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "invites" WHERE "invites"."invited_id" = $1 AND "invites"."dinner_id" = $2 LIMIT $3[0m  [["invited_id", 2], ["dinner_id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "invites" ("invited_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["invited_id", 2], ["dinner_id", 3], ["created_at", "2017-11-16 19:36:46.147955"], ["updated_at", "2017-11-16 19:36:46.147955"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 14:36:58 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mDinner Load (0.6ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 82ms (Views: 24.7ms | ActiveRecord: 10.9ms)
+
+
+Started GET "/dinners/?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:37:35 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (1.0ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+Completed 200 OK in 21ms (Views: 3.4ms | ActiveRecord: 8.0ms)
+
+
+Started GET "/dinners/invited?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:38:52 -0500
+Processing by DinnersController#index_invites as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1[0m  [["invited_id", 2]]
+Completed 200 OK in 39ms (Views: 9.8ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:44:22 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 41ms (ActiveRecord: 0.9ms)
+
+
+  
+NoMethodError (private method `select' called for #<User:0x007f8c13ceb840>):
+  
+app/controllers/dinners_controller.rb:9:in `block in index'
+app/controllers/dinners_controller.rb:8:in `index'
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:44:33 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 41ms (Views: 1.8ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:45:01 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 30ms (ActiveRecord: 0.8ms)
+
+
+  
+ActiveModel::MissingAttributeError (can't write unknown attribute `host`):
+  
+app/controllers/dinners_controller.rb:9:in `block in index'
+app/controllers/dinners_controller.rb:8:in `index'
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:45:19 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 43ms (Views: 2.0ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:46:01 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 33ms (Views: 1.7ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:46:48 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 39ms (Views: 1.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:48:05 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 38ms (Views: 2.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:48:20 -0500
+  
+SyntaxError (/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:134: syntax error, unexpected end-of-input, expecting keyword_end):
+  
+app/controllers/dinners_controller.rb:134: syntax error, unexpected end-of-input, expecting keyword_end
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:48:28 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 2], ["LIMIT", 11]]
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 2], ["LIMIT", 11]]
+Completed 500 Internal Server Error in 132ms (ActiveRecord: 8.1ms)
+
+
+  
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 2], ["LIMIT", 11]]
+NameError (undefined local variable or method `put' for #<DinnersController:0x007f8c13a71100>
+Did you mean?  puts
+               putc):
+  
+app/controllers/dinners_controller.rb:11:in `index'
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 2], ["LIMIT", 11]]
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:48:56 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 50ms (Views: 2.5ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:49:19 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.7ms)
+
+
+  
+TypeError (no implicit conversion of User into String):
+  
+app/controllers/dinners_controller.rb:9:in `+'
+app/controllers/dinners_controller.rb:9:in `block in index'
+app/controllers/dinners_controller.rb:8:in `index'
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:49:34 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 45ms (Views: 2.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:50:13 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 32ms (Views: 1.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:50:24 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+Completed 200 OK in 48ms (Views: 2.6ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:50:36 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 77ms (ActiveRecord: 1.0ms)
+
+
+  
+NoMethodError (undefined method `hosted_by=' for #<Dinner:0x007f8c12e9f930>
+Did you mean?  host_id=):
+  
+app/controllers/dinners_controller.rb:9:in `block in index'
+app/controllers/dinners_controller.rb:8:in `index'
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:50:52 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 0.7ms)
+
+
+  
+ActiveModel::MissingAttributeError (can't write unknown attribute `hosted_by`):
+  
+app/controllers/dinners_controller.rb:9:in `block in index'
+app/controllers/dinners_controller.rb:8:in `index'
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:53:14 -0500
+  
+SyntaxError (/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:10: syntax error, unexpected tIDENTIFIER, expecting '}'
+      host: dinner.host }
+          ^
+/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:10: syntax error, unexpected '}', expecting keyword_end
+      host: dinner.host }
+                         ^):
+  
+app/controllers/dinners_controller.rb:10: syntax error, unexpected tIDENTIFIER, expecting '}'
+app/controllers/dinners_controller.rb:10: syntax error, unexpected '}', expecting keyword_end
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:53:38 -0500
+  
+SyntaxError (/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:9: syntax error, unexpected ':', expecting keyword_end
+      info: dinner
+           ^
+/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:10: syntax error, unexpected ':', expecting keyword_end
+      host: dinner.host
+           ^
+/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:134: syntax error, unexpected keyword_end, expecting end-of-input):
+  
+app/controllers/dinners_controller.rb:9: syntax error, unexpected ':', expecting keyword_end
+app/controllers/dinners_controller.rb:10: syntax error, unexpected ':', expecting keyword_end
+app/controllers/dinners_controller.rb:134: syntax error, unexpected keyword_end, expecting end-of-input
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:54:07 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 LIMIT $2[0m  [["attendee_id", 2], ["LIMIT", 11]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 7.0ms)
+
+
+  
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 LIMIT $2[0m  [["attendee_id", 2], ["LIMIT", 11]]
+NoMethodError (undefined method `hosts' for #<Dinner::ActiveRecord_Associations_CollectionProxy:0x007f8c13b80910>):
+  
+app/controllers/dinners_controller.rb:10:in `index'
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 LIMIT $2[0m  [["attendee_id", 2], ["LIMIT", 11]]
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:54:13 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.8ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 LIMIT $2[0m  [["attendee_id", 2], ["LIMIT", 11]]
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 0.3ms)
+
+
+  
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 LIMIT $2[0m  [["attendee_id", 2], ["LIMIT", 11]]
+NoMethodError (undefined method `host' for #<Dinner::ActiveRecord_Associations_CollectionProxy:0x007f8c14cf4868>):
+  
+app/controllers/dinners_controller.rb:10:in `index'
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 LIMIT $2[0m  [["attendee_id", 2], ["LIMIT", 11]]
+Started GET "/dinners/invited?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:55:03 -0500
+Processing by DinnersController#index_invites as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1[0m  [["invited_id", 2]]
+Completed 200 OK in 42ms (Views: 13.7ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:55:13 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 4.4ms)
+
+
+  
+NoMethodError (private method `select' called for #<User:0x007f8c14cafce0>):
+  
+app/controllers/dinners_controller.rb:24:in `block in index_attending'
+app/controllers/dinners_controller.rb:23:in `index_attending'
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:55:54 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 56ms (ActiveRecord: 7.4ms)
+
+
+  
+NoMethodError (private method `select' called for #<User:0x007f8c14d86f88>):
+  
+app/controllers/dinners_controller.rb:27:in `block in index_attending'
+app/controllers/dinners_controller.rb:26:in `index_attending'
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:57:24 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 39ms (ActiveRecord: 0.7ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (User(#70119794589640) expected, got {:name=>"Daniel Risdon", :email=>"drisdon07@gmail.com", :token=>"nNvaPCJT2e8RUTNZmygp5Qcy", :id=>1} which is an instance of Hash(#70119791622380)):
+  
+app/controllers/dinners_controller.rb:24:in `block in index_attending'
+app/controllers/dinners_controller.rb:23:in `index_attending'
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:58:13 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 40ms (ActiveRecord: 0.8ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (User(#70119800787420) expected, got {:id=>1, :name=>"Daniel Risdon", :email=>"drisdon07@gmail.com", :avatar=>nil} which is an instance of Hash(#70119791622380)):
+  
+app/controllers/dinners_controller.rb:27:in `block in index_attending'
+app/controllers/dinners_controller.rb:26:in `index_attending'
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:58:52 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 44ms (Views: 0.7ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:59:12 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 44ms (Views: 0.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 14:59:35 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+Completed 200 OK in 62ms (Views: 24.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:02:35 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 41ms (Views: 0.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:03:08 -0500
+  
+SyntaxError (/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:25: syntax error, unexpected ':', expecting '}'
+        info: dinner,
+             ^
+/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:27: syntax error, unexpected tLABEL, expecting '='
+        attendees: dinner.attendees
+                  ^
+/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/dinners_controller.rb:28: syntax error, unexpected '}', expecting keyword_end
+      }
+       ^):
+  
+app/controllers/dinners_controller.rb:25: syntax error, unexpected ':', expecting '}'
+app/controllers/dinners_controller.rb:27: syntax error, unexpected tLABEL, expecting '='
+app/controllers/dinners_controller.rb:28: syntax error, unexpected '}', expecting keyword_end
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:03:37 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 54ms (Views: 0.8ms | ActiveRecord: 7.7ms)
+
+
+Started GET "/dinners/1?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:06:19 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.7ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 2], ["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 45ms (Views: 4.4ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/dinners/attending?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:06:45 -0500
+Processing by DinnersController#index_attending as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 43ms (Views: 0.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dinners/invited?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:06:53 -0500
+Processing by DinnersController#index_invites as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1[0m  [["invited_id", 2]]
+Completed 200 OK in 13ms (Views: 0.6ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/dinners/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:20 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 2], ["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["invited_id", 2], ["id", 2], ["LIMIT", 1]]
+Completed 204 No Content in 47ms (ActiveRecord: 10.4ms)
+
+
+Started GET "/dinners/1?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:22 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 2], ["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.8ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 19ms (Views: 3.7ms | ActiveRecord: 3.1ms)
+
+
+Started GET "/dinners/3?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:25 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 2], ["id", 3], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["id", 3], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.6ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["invited_id", 2], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 200 OK in 12ms (Views: 2.6ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/dinners/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:26 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 2], ["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.6ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["invited_id", 2], ["id", 2], ["LIMIT", 1]]
+Completed 204 No Content in 13ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/dinners/?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:34 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+Completed 200 OK in 6ms (Views: 4.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:36 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+Completed 200 OK in 5ms (Views: 2.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dinners?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:07:47 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+Completed 200 OK in 57ms (Views: 14.9ms | ActiveRecord: 8.8ms)
+
+
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" LIMIT $1[0m  [["LIMIT", 11]]
+Started GET "/dinners?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:08:20 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mDinner Load (0.6ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 80ms (Views: 27.2ms | ActiveRecord: 9.8ms)
+
+
+Started GET "/dinners/hosting?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:09:02 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 47ms (Views: 1.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dinners/hosting?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:09:42 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 41ms (Views: 1.9ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/dinners/hosting?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:09:48 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 44ms (Views: 1.8ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/dinners/hosting?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:10:07 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 1], ["LIMIT", 11]]
+Completed 500 Internal Server Error in 40ms (ActiveRecord: 0.4ms)
+
+
+  
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 1], ["LIMIT", 11]]
+NoMethodError (undefined method `all_info' for #<Dinner::ActiveRecord_Associations_CollectionProxy:0x007fc8862e7c68>):
+  
+app/controllers/dinners_controller.rb:16:in `index_hosting'
+  [1m[36mCACHE Dinner Load (0.0ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 LIMIT $2[0m  [["host_id", 1], ["LIMIT", 11]]
+Started GET "/dinners/hosting?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:10:44 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 39ms (Views: 1.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dinners/1?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:11:15 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 31ms (Views: 0.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dinners/1?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:11:18 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 52ms (Views: 6.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:11:53 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 47ms (Views: 2.4ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:12:06 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.8ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 204 No Content in 49ms (ActiveRecord: 1.2ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:12:17 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 79ms (Views: 2.0ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:12:25 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 60ms (Views: 1.8ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:12:37 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 1.0ms)
+
+
+  
+NoMethodError (undefined method `<<' for #<Dinner:0x007fc886cd12b0>):
+  
+app/controllers/dinners_controller.rb:7:in `block in index'
+app/controllers/dinners_controller.rb:6:in `index'
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:13:25 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 45ms (Views: 1.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:13:58 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 11]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 2], ["LIMIT", 11]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 3], ["LIMIT", 11]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 4], ["LIMIT", 11]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 5], ["LIMIT", 11]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 6], ["LIMIT", 11]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 7], ["LIMIT", 11]]
+Completed 200 OK in 76ms (Views: 1.3ms | ActiveRecord: 4.3ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:14:31 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 47ms (Views: 2.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:14:57 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 60ms (Views: 3.0ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:15:19 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 42ms (Views: 1.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:16:23 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 49ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:16:32 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 47ms (Views: 1.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:16:40 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 48ms (Views: 1.8ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:17:00 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.8ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 11]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 57ms (ActiveRecord: 2.4ms)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Dinner(#70249610390120) expected, got {:info=>#<Dinner id: 1, starts_at: "2017-11-15 19:30:00", location: "490 West End Ave", host_id: 1, created_at: "2017-11-16 19:36:46", updated_at: "2017-11-16 19:36:46">, :host=>#<User id: 1, name: "Daniel Risdon", password_digest: "$2a$10$sGyL6AHFtDzwa3cjdSvhzuXCLOHFDGMGQid.mx7y4rr...", email: "drisdon07@gmail.com", avatar: nil, auth_token: "nNvaPCJT2e8RUTNZmygp5Qcy", created_at: "2017-11-16 19:36:11", updated_at: "2017-11-16 19:36:11">, :attendees=>#<ActiveRecord::Associations::CollectionProxy [#<User id: 2, name: "Pippa Kelmenson", password_digest: "$2a$10$A82HCGN4cgF1rMiiTDrbbOP3iSos1WPZOxJlGVW1jhR...", email: "pippa.kelmenson@gmail.com", avatar: nil, auth_token: "V4YMwSTkGNqrb2yrBKUhgyp5", created_at: "2017-11-16 19:36:29", updated_at: "2017-11-16 19:36:29">]>} which is an instance of Hash(#70249609525500)):
+  
+app/controllers/dinners_controller.rb:22:in `block in index_hosting'
+app/controllers/dinners_controller.rb:21:in `index_hosting'
+Started GET "/dinners/hosting/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:17:20 -0500
+Processing by DinnersController#index_hosting as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 82ms (Views: 23.2ms | ActiveRecord: 3.2ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:17:55 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 51ms (Views: 1.9ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:18:31 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+Completed 200 OK in 52ms (Views: 1.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/dinners/?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:18:40 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 61ms (Views: 10.7ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/dinners/invited?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:19:27 -0500
+Processing by DinnersController#index_invites as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1[0m  [["invited_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 500 Internal Server Error in 17ms (Views: 2.0ms | ActiveRecord: 5.5ms)
+
+
+  
+AbstractController::DoubleRenderError (Render and/or redirect were called multiple times in this action. Please note that you may only call render OR redirect, and at most once per action. Also note that neither redirect nor render terminate execution of the action, so if you want to exit an action after redirecting, you need to do something like "redirect_to(...) and return".):
+  
+app/controllers/dinners_controller.rb:49:in `index_invites'
+Started GET "/dinners/invited?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:19:41 -0500
+Processing by DinnersController#index_invites as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.8ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1[0m  [["invited_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 200 OK in 70ms (Views: 5.6ms | ActiveRecord: 13.3ms)
+
+
+Started GET "/user/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:38:19 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/user/2"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/users/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:38:24 -0500
+Processing by DinnersController#index_other_user as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 98ms (ActiveRecord: 0.3ms)
+
+
+  
+NameError (undefined local variable or method `id' for #<DinnersController:0x007fc8874ae5c8>):
+  
+app/controllers/dinners_controller.rb:22:in `index_other_user'
+Started GET "/users/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:38:34 -0500
+Processing by DinnersController#index_other_user as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+Completed 200 OK in 62ms (Views: 6.4ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/users/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:51:44 -0500
+Processing by DinnersController#index_other_user as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "V4YMwSTkGNqrb2yrBKUhgyp5"], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+Completed 200 OK in 61ms (Views: 9.4ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/users/2?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:52:22 -0500
+Processing by UsersController#index_user as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+Completed 200 OK in 47ms (Views: 6.3ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/users/1?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:52:25 -0500
+Processing by UsersController#index_user as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 26ms (Views: 10.5ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/users/1?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-16 15:52:57 -0500
+Processing by UsersController#index_user as */*
+  Parameters: {"auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 66ms (Views: 10.9ms | ActiveRecord: 8.8ms)
+
+
+Started DELETE "/dinners/4?auth_token=EbpDK5rVqQvfKeoMmuzV5D26" for 127.0.0.1 at 2017-11-16 15:56:16 -0500
+Processing by DinnersController#delete as */*
+  Parameters: {"auth_token"=>"EbpDK5rVqQvfKeoMmuzV5D26", "id"=>"4"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "EbpDK5rVqQvfKeoMmuzV5D26"], ["LIMIT", 1]]
+Filter chain halted as :require_token rendered or redirected
+Completed 401 Unauthorized in 10ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/dinners/4?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:56:29 -0500
+Processing by DinnersController#delete as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (2.6ms)[0m  [1m[31mDELETE FROM "dinners" WHERE "dinners"."id" = $1[0m  [["id", 4]]
+Completed 200 OK in 33ms (Views: 0.2ms | ActiveRecord: 10.3ms)
+
+
+Started GET "/dinners/4?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:56:38 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 4], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.6ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 1], ["id", 4], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["invited_id", 1], ["id", 4], ["LIMIT", 1]]
+Completed 204 No Content in 21ms (ActiveRecord: 3.2ms)
+
+
+Started GET "/dinners/3?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:56:40 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 200 OK in 15ms (Views: 8.6ms | ActiveRecord: 1.2ms)
+
+
+Started PUT "/dinners/3?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:57:38 -0500
+  
+ActionController::RoutingError (No route matches [PUT] "/dinners/3"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started PUT "/dinners/3?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:58:11 -0500
+Processing by DinnersController#update as */*
+  Parameters: {"starts_at"=>"2017-11-17 19:30:00", "location"=>"My House", "auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+Unpermitted parameters: :auth_token, :id
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "dinners" SET "starts_at" = $1, "location" = $2, "updated_at" = $3 WHERE "dinners"."id" = $4[0m  [["starts_at", "2017-11-17 19:30:00"], ["location", "My House"], ["updated_at", "2017-11-16 20:58:11.085423"], ["id", 3]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 44ms (Views: 0.6ms | ActiveRecord: 9.4ms)
+
+
+Started PUT "/dinners/3?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 15:58:37 -0500
+Processing by DinnersController#update as */*
+  Parameters: {"starts_at"=>"2017-11-17 19:30:00", "location"=>"My House", "auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+Unpermitted parameters: :auth_token, :id
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 200 OK in 46ms (Views: 4.5ms | ActiveRecord: 2.5ms)
+
+
