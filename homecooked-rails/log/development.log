@@ -4986,3 +4986,1527 @@ Unpermitted parameters: :auth_token, :id
 Completed 200 OK in 46ms (Views: 4.5ms | ActiveRecord: 2.5ms)
 
 
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRecipes (20171116210523)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (25.6ms)[0m  [1m[35mCREATE TABLE "recipes" ("id" bigserial primary key, "dinner_id" bigint, "name" character varying, "image_url" character varying, "recipe_url" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116210523"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateIngredients (20171116210753)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "ingredients" ("id" bigserial primary key, "recipe_id" bigint, "text" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116210753"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["dinner_id", 1], ["name", "chicken"], ["created_at", "2017-11-16 21:10:02.220854"], ["updated_at", "2017-11-16 21:10:02.220854"]]
+  [1m[35m (10.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" ORDER BY "dinners"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 11]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "ingredients" ("recipe_id", "text", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["recipe_id", 1], ["text", "chicken"], ["created_at", "2017-11-16 21:10:46.485100"], ["updated_at", "2017-11-16 21:10:46.485100"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" ORDER BY "dinners"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1 ORDER BY "recipes"."id" ASC LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" ORDER BY "dinners"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1 ORDER BY "recipes"."id" ASC LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 1]]
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT  "ingredients".* FROM "ingredients" WHERE "ingredients"."recipe_id" = $1 LIMIT $2[0m  [["recipe_id", 1], ["LIMIT", 11]]
+Started GET "/dinners/1?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 16:13:55 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 95ms (Views: 23.7ms | ActiveRecord: 13.2ms)
+
+
+Started GET "/dinners/1?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 16:15:11 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.4ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 11]]
+Completed 500 Internal Server Error in 49ms (ActiveRecord: 0.9ms)
+
+
+  
+  [1m[36mCACHE Recipe Load (0.0ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 11]]
+NoMethodError (undefined method `all_info' for #<Recipe::ActiveRecord_Associations_CollectionProxy:0x007fa68bdc7290>):
+  
+app/models/dinner.rb:18:in `all_info'
+app/controllers/dinners_controller.rb:61:in `show'
+  [1m[36mCACHE Recipe Load (0.0ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1 LIMIT $2[0m  [["dinner_id", 1], ["LIMIT", 11]]
+Started GET "/dinners/1?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 16:16:39 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 52ms (Views: 4.6ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/dinners/1?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 16:17:04 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 57ms (Views: 4.5ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/dinners?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 16:17:35 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 200 OK in 73ms (Views: 26.6ms | ActiveRecord: 3.5ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (218.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_development"[0m
+  [1m[35m (217.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_test"[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20171114183350)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (22.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "password_digest" character varying, "email" character varying, "avatar" character varying, "auth_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_auth_token" ON "users"  ("auth_token")[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114183350"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAttendeeDinners (20171114235523)
+  [1m[35m (6.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE "attendee_dinners" ("id" bigserial primary key, "attendee_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114235523"]]
+  [1m[35m (4.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDinners (20171115160932)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "dinners" ("id" bigserial primary key, "starts_at" timestamp, "location" character varying, "host_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171115160932"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateInvites (20171116160734)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "invites" ("id" bigserial primary key, "invited_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116160734"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRecipes (20171116210523)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "recipes" ("id" bigserial primary key, "dinner_id" bigint, "name" character varying, "image_url" character varying, "recipe_url" character varying, "recipe_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116210523"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateIngredients (20171116210753)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "ingredients" ("id" bigserial primary key, "recipe_id" bigint, "text" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116210753"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-11-16 21:27:24.879529"], ["updated_at", "2017-11-16 21:27:24.879529"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users" for 127.0.0.1 at 2017-11-16 16:27:37 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "user"=>{"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com"}}
+Unpermitted parameter: :user
+  [1m[36mUser Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Daniel Risdon"], ["password_digest", "$2a$10$cW8dE3iPWZdV6YNwvfpAMuI/UgbqZEKylvpbw34r8fGp4xF27h2py"], ["email", "drisdon07@gmail.com"], ["auth_token", "QBDRq9XtpztCbRJqcTqpVCcW"], ["created_at", "2017-11-16 21:27:37.647231"], ["updated_at", "2017-11-16 21:27:37.647231"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 88ms (Views: 0.3ms | ActiveRecord: 12.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-11-16 16:27:51 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "user"=>{"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com"}}
+Unpermitted parameter: :user
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Pippa Kelmenson"], ["password_digest", "$2a$10$V.R98pNpnlVTdnYJGlxj3OznlA9dlew0z3dYPPT1c.JFQdw1Ozn2u"], ["email", "pippa.kelmenson@gmail.com"], ["auth_token", "3VwyYGaruZHbAUj7aezdq8tP"], ["created_at", "2017-11-16 21:27:51.439707"], ["updated_at", "2017-11-16 21:27:51.439707"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 81ms (Views: 0.2ms | ActiveRecord: 6.6ms)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-15 19:30:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.887093"], ["updated_at", "2017-11-16 21:28:05.887093"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-16 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.891318"], ["updated_at", "2017-11-16 21:28:05.891318"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-17 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.894079"], ["updated_at", "2017-11-16 21:28:05.894079"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-18 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.896707"], ["updated_at", "2017-11-16 21:28:05.896707"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-19 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.899326"], ["updated_at", "2017-11-16 21:28:05.899326"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-20 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.901948"], ["updated_at", "2017-11-16 21:28:05.901948"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-21 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-16 21:28:05.904750"], ["updated_at", "2017-11-16 21:28:05.904750"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 1], ["created_at", "2017-11-16 21:28:05.922604"], ["updated_at", "2017-11-16 21:28:05.922604"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 4], ["created_at", "2017-11-16 21:28:05.927312"], ["updated_at", "2017-11-16 21:28:05.927312"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mInvite Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "invites" WHERE "invites"."invited_id" = $1 AND "invites"."dinner_id" = $2 LIMIT $3[0m  [["invited_id", 2], ["dinner_id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "invites" ("invited_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["invited_id", 2], ["dinner_id", 3], ["created_at", "2017-11-16 21:28:05.944938"], ["updated_at", "2017-11-16 21:28:05.944938"]]
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/dinners?auth_token=nNvaPCJT2e8RUTNZmygp5Qcy" for 127.0.0.1 at 2017-11-16 16:33:37 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"nNvaPCJT2e8RUTNZmygp5Qcy"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "nNvaPCJT2e8RUTNZmygp5Qcy"], ["LIMIT", 1]]
+Filter chain halted as :require_token rendered or redirected
+Completed 401 Unauthorized in 13ms (Views: 0.2ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/dinners?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:33:48 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "QBDRq9XtpztCbRJqcTqpVCcW"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.5ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 113ms (Views: 12.4ms | ActiveRecord: 23.0ms)
+
+
+Started GET "/dinners?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:34:14 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "QBDRq9XtpztCbRJqcTqpVCcW"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.4ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 78ms (Views: 14.3ms | ActiveRecord: 15.1ms)
+
+
+Started GET "/dinners?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:35:17 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "QBDRq9XtpztCbRJqcTqpVCcW"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 38ms (ActiveRecord: 0.9ms)
+
+
+  
+NoMethodError (private method `select' called for #<User:0x007fef16a63440>):
+  
+app/models/dinner.rb:16:in `all_info'
+app/controllers/dinners_controller.rb:10:in `block in index'
+app/controllers/dinners_controller.rb:9:in `index'
+Started GET "/dinners?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:35:43 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "QBDRq9XtpztCbRJqcTqpVCcW"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 69ms (Views: 12.5ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/recipes/1?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:41:54 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW", "id"=>"1"}
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 404 Not Found in 7ms (ActiveRecord: 1.8ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Recipe with 'id'=1):
+  
+app/controllers/recipes_controller.rb:4:in `show'
+Started POST "/recipes?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:42:41 -0500
+  
+AbstractController::ActionNotFound (The action 'create' could not be found for RecipesController):
+  
+actionpack (5.1.4) lib/abstract_controller/base.rb:119:in `process'
+actionpack (5.1.4) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.4) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.4) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.4) lib/action_dispatch/routing/route_set.rb:834:in `call'
+rack (2.0.3) lib/rack/etag.rb:25:in `call'
+rack (2.0.3) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.3) lib/rack/head.rb:12:in `call'
+activerecord (5.1.4) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.4) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.4) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started POST "/recipes?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:43:55 -0500
+  
+SyntaxError (/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/recipes_controller.rb:18: syntax error, unexpected end-of-input, expecting keyword_end):
+  
+app/controllers/recipes_controller.rb:18: syntax error, unexpected end-of-input, expecting keyword_end
+Started POST "/recipes?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:44:11 -0500
+Processing by RecipesController#create as */*
+  Parameters: {"dinner_id"=>"1", "name"=>"\"CHICKEN\"", "recipe_text"=>"\"cook the chicken\"", "auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW"}
+Unpermitted parameter: :auth_token
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "name", "recipe_text", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["dinner_id", 1], ["name", "\"CHICKEN\""], ["recipe_text", "\"cook the chicken\""], ["created_at", "2017-11-16 21:44:11.123236"], ["updated_at", "2017-11-16 21:44:11.123236"]]
+  [1m[35m (4.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 43ms (ActiveRecord: 11.8ms)
+
+
+Started GET "/recipes/1?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:44:24 -0500
+  
+SyntaxError (/Users/Drisdon/Documents/wdi/projects/final_project/homecooked-rails/homecooked-rails/app/controllers/recipes_controller.rb:11: syntax error, unexpected tIVAR, expecting keyword_end
+    render :json @recipe
+                        ^):
+  
+app/controllers/recipes_controller.rb:11: syntax error, unexpected tIVAR, expecting keyword_end
+Started GET "/recipes/1?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:44:33 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW", "id"=>"1"}
+  [1m[36mRecipe Load (0.4ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mIngredient Load (2.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" WHERE "ingredients"."recipe_id" = $1[0m  [["recipe_id", 1]]
+Completed 200 OK in 30ms (Views: 3.0ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/dinners/1?auth_token=QBDRq9XtpztCbRJqcTqpVCcW" for 127.0.0.1 at 2017-11-16 16:44:52 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"QBDRq9XtpztCbRJqcTqpVCcW", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "QBDRq9XtpztCbRJqcTqpVCcW"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 200 OK in 54ms (Views: 3.2ms | ActiveRecord: 9.4ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (18.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 09:57:38 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 0.0ms)
+
+
+  
+SocketError (Failed to open TCP connection to https:443 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/recipes_controller.rb:22:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 09:59:37 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 0.0ms)
+
+
+  
+SocketError (Failed to open TCP connection to https:443 (getaddrinfo: nodename nor servname provided, or not known)):
+  
+app/controllers/recipes_controller.rb:22:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:02:16 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 1613ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `hits' for #<Hash:0x007f907e236430>):
+  
+app/controllers/recipes_controller.rb:24:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:02:48 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 1118ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `data' for #<Hash:0x007f907d2d51d0>):
+  
+app/controllers/recipes_controller.rb:24:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:02:57 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 1143ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `body' for #<Hash:0x007f907bd6a2f0>):
+  
+app/controllers/recipes_controller.rb:24:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:04:33 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 1163ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `hits' for #<Hash:0x007f907c0e0ba0>):
+  
+app/controllers/recipes_controller.rb:24:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:05:00 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 1164ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `hits' for #<Hash:0x007f907c1c9aa8>):
+  
+app/controllers/recipes_controller.rb:34:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:05:08 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 500 Internal Server Error in 1215ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `data' for #<Hash:0x007f907bc39548>):
+  
+app/controllers/recipes_controller.rb:34:in `search'
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:05:17 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 204 No Content in 1048ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:05:49 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1154ms (Views: 59.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:06:36 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1070ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:06:45 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1015ms (Views: 49.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:07:30 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1246ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:07:43 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1174ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:07:50 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1019ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chicken" for 127.0.0.1 at 2017-11-17 10:09:49 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chicken"}
+Completed 200 OK in 1084ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/roast/beef" for 127.0.0.1 at 2017-11-17 10:10:54 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/recipes/search/roast/beef"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/recipes/search/roast/%20beef" for 127.0.0.1 at 2017-11-17 10:10:56 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/recipes/search/roast/%20beef"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/recipes/search/roast%20/beef" for 127.0.0.1 at 2017-11-17 10:10:58 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/recipes/search/roast%20/beef"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/recipes/search/roastbeef" for 127.0.0.1 at 2017-11-17 10:11:01 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"roastbeef"}
+Completed 200 OK in 262ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/roast%20beef" for 127.0.0.1 at 2017-11-17 10:11:05 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"roast beef"}
+Completed 200 OK in 963ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/burger" for 127.0.0.1 at 2017-11-17 10:11:15 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"burger"}
+Completed 200 OK in 1319ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/pulled%20pork" for 127.0.0.1 at 2017-11-17 10:12:26 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"pulled pork"}
+Completed 200 OK in 1047ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chilli" for 127.0.0.1 at 2017-11-17 10:13:13 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chilli"}
+Completed 200 OK in 1209ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chili" for 127.0.0.1 at 2017-11-17 10:13:20 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chili"}
+Completed 200 OK in 1228ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/chilli" for 127.0.0.1 at 2017-11-17 10:13:24 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"chilli"}
+Completed 200 OK in 966ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/recipes/search/tacos" for 127.0.0.1 at 2017-11-17 10:13:36 -0500
+Processing by RecipesController#search as */*
+  Parameters: {"query"=>"tacos"}
+Completed 200 OK in 1434ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/recipes?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-17 10:15:43 -0500
+Processing by RecipesController#create as */*
+  Parameters: {"name"=>"Crisp Tacos Picadillo", "source"=>"Internet", "ingredients"=>"[\n            \"2 tsp Vegetable Oil (picadillo)\",\n            \"1/2 x white onion (large), chopped (1 1/2 cups) (picadillo)\",\n            \"1 lb Ground Chuck (80 percent lean) (picadillo)\",\n            \"1 tbsp minced garlic cloves(1 to 2 cloves) (picadillo)\",\n            \"2 x tomatoes (medium), diced (2 3/4 cups) (picadillo)\",\n            \"1 1/2 tsp Paprika (picadillo)\",\n            \"1 tsp ancho chile powder (picadillo)\",\n            \"1 tsp Dried Oregano (picadillo)\",\n            \"1 tsp coarse salt (picadillo)\",\n            \"1 tsp freshly ground pepper (picadillo)\",\n            \"3/4 tsp Ground Cumin (picadillo)\",\n            \"1 1/2 cup water (picadillo)\",\n            \"3 tsp White Vinegar (picadillo)\",\n            \"vegetable oil for frying (tacos)\",\n            \"20 x Corn Tortillas (tacos)\",\n            \"Iceberg Lettuce Shredded,for serving (tacos)\",\n            \"white onion shredded,for serving (tacos)\",\n            \"shredded cheddar cheese (tacos)\",\n            \"salsa Picante, for serving (tacos)\"\n        ]", "auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+Unpermitted parameters: :source, :auth_token
+Completed 500 Internal Server Error in 47ms (ActiveRecord: 4.5ms)
+
+
+  
+NoMethodError (undefined method `each' for #<String:0x007f907e345bf0>):
+  
+app/controllers/recipes_controller.rb:8:in `create'
+Started POST "/recipes?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-17 10:16:10 -0500
+Processing by RecipesController#create as */*
+  Parameters: {"name"=>"Crisp Tacos Picadillo", "source"=>"Internet", "ingredients"=>{"0"=>"2 tsp Vegetable Oil (picadillo)"}, "auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+Unpermitted parameters: :source, :ingredients, :auth_token
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.4ms)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'recipe_id' for Recipe.):
+  
+app/controllers/recipes_controller.rb:12:in `block in create'
+app/controllers/recipes_controller.rb:11:in `create'
+Started POST "/recipes?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-17 10:16:57 -0500
+Processing by RecipesController#create as */*
+  Parameters: {"name"=>"Crisp Tacos Picadillo", "source"=>"Internet", "ingredients"=>{"0"=>"2 tsp Vegetable Oil (picadillo)", "1"=>"1/2 x white onion (large), chopped (1 1/2 cups) (picadillo)"}, "auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+Unpermitted parameters: :source, :ingredients, :auth_token
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 200 OK in 36ms (Views: 0.4ms | ActiveRecord: 6.5ms)
+
+
+Started POST "/recipes?auth_token=V4YMwSTkGNqrb2yrBKUhgyp5" for 127.0.0.1 at 2017-11-17 10:21:42 -0500
+Processing by RecipesController#create as */*
+  Parameters: {"name"=>"Crisp Tacos Picadillo", "source"=>"Internet", "ingredients"=>{"0"=>"2 tsp Vegetable Oil (picadillo)", "1"=>"1/2 x white onion (large), chopped (1 1/2 cups) (picadillo)"}, "auth_token"=>"V4YMwSTkGNqrb2yrBKUhgyp5"}
+Unpermitted parameters: :ingredients, :auth_token
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'source' for Recipe.):
+  
+app/controllers/recipes_controller.rb:8:in `create'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (222.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_development"[0m
+  [1m[35m (209.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_test"[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20171114183350)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (25.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "password_digest" character varying, "email" character varying, "avatar" character varying, "auth_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_auth_token" ON "users"  ("auth_token")[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114183350"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAttendeeDinners (20171114235523)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "attendee_dinners" ("id" bigserial primary key, "attendee_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114235523"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDinners (20171115160932)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "dinners" ("id" bigserial primary key, "starts_at" timestamp, "location" character varying, "host_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171115160932"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateInvites (20171116160734)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "invites" ("id" bigserial primary key, "invited_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116160734"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRecipes (20171116210523)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "recipes" ("id" bigserial primary key, "dinner_id" bigint, "source" character varying, "name" character varying, "image_url" character varying, "recipe_url" character varying, "ingredients" character varying, "recipe_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116210523"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-11-17 15:26:54.733861"], ["updated_at", "2017-11-17 15:26:54.733861"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users" for 127.0.0.1 at 2017-11-17 10:28:58 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "user"=>{"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com"}}
+Unpermitted parameter: :user
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Daniel Risdon"], ["password_digest", "$2a$10$/gDAOEnOSQJufmmqnLlr7OASyQkjeLIQHtaYjJjNr.eDMAos2fvNu"], ["email", "drisdon07@gmail.com"], ["auth_token", "k2GREihJbU8kKoQLEQfMMGCG"], ["created_at", "2017-11-17 15:28:58.570241"], ["updated_at", "2017-11-17 15:28:58.570241"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 92ms (Views: 0.3ms | ActiveRecord: 11.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-11-17 10:29:12 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "user"=>{"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com"}}
+Unpermitted parameter: :user
+  [1m[36mUser Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Pippa Kelmenson"], ["password_digest", "$2a$10$mmj4HKgsBBLJg8ZT42UczuceShr4k221ERY4BdMn5LX6ZZrTQ8bTa"], ["email", "pippa.kelmenson@gmail.com"], ["auth_token", "3AZn3uGaAtRqpaCK9D5W4irM"], ["created_at", "2017-11-17 15:29:12.602616"], ["updated_at", "2017-11-17 15:29:12.602616"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 83ms (Views: 0.2ms | ActiveRecord: 8.7ms)
+
+
+Started GET "/dinners/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:29:25 -0500
+Processing by DinnersController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "k2GREihJbU8kKoQLEQfMMGCG"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.7ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["host_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.7ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["attendee_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1 AND "dinners"."id" = $2 LIMIT $3[0m  [["invited_id", 1], ["id", 1], ["LIMIT", 1]]
+Completed 204 No Content in 55ms (ActiveRecord: 10.8ms)
+
+
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-15 19:30:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:47.966160"], ["updated_at", "2017-11-17 15:38:47.966160"]]
+  [1m[35m (11.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-16 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:47.983609"], ["updated_at", "2017-11-17 15:38:47.983609"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-17 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:47.994308"], ["updated_at", "2017-11-17 15:38:47.994308"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-18 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:47.997968"], ["updated_at", "2017-11-17 15:38:47.997968"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-19 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:48.001650"], ["updated_at", "2017-11-17 15:38:48.001650"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-20 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:48.005344"], ["updated_at", "2017-11-17 15:38:48.005344"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-21 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:38:48.008868"], ["updated_at", "2017-11-17 15:38:48.008868"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 1], ["created_at", "2017-11-17 15:38:48.027148"], ["updated_at", "2017-11-17 15:38:48.027148"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 4], ["created_at", "2017-11-17 15:38:48.031997"], ["updated_at", "2017-11-17 15:38:48.031997"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mInvite Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "invites" WHERE "invites"."invited_id" = $1 AND "invites"."dinner_id" = $2 LIMIT $3[0m  [["invited_id", 2], ["dinner_id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "invites" ("invited_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["invited_id", 2], ["dinner_id", 3], ["created_at", "2017-11-17 15:38:48.048426"], ["updated_at", "2017-11-17 15:38:48.048426"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-15 19:30:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.719981"], ["updated_at", "2017-11-17 15:39:33.719981"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-16 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.726846"], ["updated_at", "2017-11-17 15:39:33.726846"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-17 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.730411"], ["updated_at", "2017-11-17 15:39:33.730411"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-18 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.733711"], ["updated_at", "2017-11-17 15:39:33.733711"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-19 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.736868"], ["updated_at", "2017-11-17 15:39:33.736868"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-20 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.739896"], ["updated_at", "2017-11-17 15:39:33.739896"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-21 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:33.742834"], ["updated_at", "2017-11-17 15:39:33.742834"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mInvite Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "invites" WHERE "invites"."invited_id" = $1 AND "invites"."dinner_id" = $2 LIMIT $3[0m  [["invited_id", 2], ["dinner_id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-15 19:30:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.557543"], ["updated_at", "2017-11-17 15:39:53.557543"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-16 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.564744"], ["updated_at", "2017-11-17 15:39:53.564744"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-17 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.568661"], ["updated_at", "2017-11-17 15:39:53.568661"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-18 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.577702"], ["updated_at", "2017-11-17 15:39:53.577702"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-19 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.580615"], ["updated_at", "2017-11-17 15:39:53.580615"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-20 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.583438"], ["updated_at", "2017-11-17 15:39:53.583438"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-21 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 15:39:53.586063"], ["updated_at", "2017-11-17 15:39:53.586063"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mInvite Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "invites" WHERE "invites"."invited_id" = $1 AND "invites"."dinner_id" = $2 LIMIT $3[0m  [["invited_id", 2], ["dinner_id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 1], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 15:39:53.649401"], ["updated_at", "2017-11-17 15:39:53.649401"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:40:04 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.5ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 21ms (Views: 0.8ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:40:47 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 13ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:41:24 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 16ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:41:48 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 12ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:42:24 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 14ms (Views: 0.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:43:41 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 13ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:43:47 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 13ms (Views: 0.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 10:45:57 -0500
+Processing by RecipesController#show as */*
+  Parameters: {"auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 15ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+Started PUT "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 11:01:26 -0500
+  
+ActionController::RoutingError (No route matches [PUT] "/recipes/1"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started PUT "/recipes/1?auth_token=k2GREihJbU8kKoQLEQfMMGCG" for 127.0.0.1 at 2017-11-17 11:05:49 -0500
+Processing by RecipesController#update as */*
+  Parameters: {"name"=>"Crisp Tacos Picadillo", "source"=>"Internet", "ingredients"=>"2 tsp Vegetable Oil (picadillo)", "auth_token"=>"k2GREihJbU8kKoQLEQfMMGCG", "id"=>"1"}
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT  "recipes".* FROM "recipes" WHERE "recipes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameters: :auth_token, :id
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (6.3ms)[0m  [1m[33mUPDATE "recipes" SET "name" = $1, "source" = $2, "ingredients" = $3, "updated_at" = $4 WHERE "recipes"."id" = $5[0m  [["name", "Crisp Tacos Picadillo"], ["source", "Internet"], ["ingredients", "2 tsp Vegetable Oil (picadillo)"], ["updated_at", "2017-11-17 16:05:49.819298"], ["id", 1]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 58ms (Views: 0.8ms | ActiveRecord: 15.1ms)
+
+
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (209.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_development"[0m
+  [1m[35m (218.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "homecooked-rails_test"[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3994132832327372910)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20171114183350)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "password_digest" character varying, "email" character varying, "avatar" character varying, "auth_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_auth_token" ON "users"  ("auth_token")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114183350"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAttendeeDinners (20171114235523)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "attendee_dinners" ("id" bigserial primary key, "attendee_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171114235523"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDinners (20171115160932)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "dinners" ("id" bigserial primary key, "starts_at" timestamp, "location" character varying, "host_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171115160932"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateInvites (20171116160734)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "invites" ("id" bigserial primary key, "invited_id" bigint, "dinner_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116160734"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRecipes (20171116210523)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "recipes" ("id" bigserial primary key, "dinner_id" bigint, "source" character varying, "name" character varying, "image_url" character varying, "recipe_url" character varying, "ingredients" character varying, "recipe_text" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171116210523"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-11-17 16:06:18.016759"], ["updated_at", "2017-11-17 16:06:18.016759"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3994132832327372910)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users" for 127.0.0.1 at 2017-11-17 11:10:34 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "avatar"=>"", "user"=>{"name"=>"Daniel Risdon", "email"=>"drisdon07@gmail.com", "avatar"=>""}}
+Unpermitted parameters: :avatar, :user
+  [1m[36mUser Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "drisdon07@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Daniel Risdon"], ["password_digest", "$2a$10$ROrMY0VUmt4qlqSZWi/sFOkamb9n4EIe1bzhOqihHG4u1hwkeWIoW"], ["email", "drisdon07@gmail.com"], ["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["created_at", "2017-11-17 16:10:34.900550"], ["updated_at", "2017-11-17 16:10:34.900550"]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 87ms (Views: 0.3ms | ActiveRecord: 8.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-11-17 11:10:53 -0500
+Processing by UsersController#create as HTML
+  Parameters: {"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "avatar"=>"", "user"=>{"name"=>"Pippa Kelmenson", "email"=>"pippa.kelmenson@gmail.com", "avatar"=>""}}
+Unpermitted parameters: :avatar, :user
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "pippa.kelmenson@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "password_digest", "email", "auth_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Pippa Kelmenson"], ["password_digest", "$2a$10$8lxxt/hLGcojnx/tbRSdzOy2diIwU8TDzGj.iJjgVvd1FVD2zmAd2"], ["email", "pippa.kelmenson@gmail.com"], ["auth_token", "BDP49YeYAegMtrFW71pUmCcJ"], ["created_at", "2017-11-17 16:10:53.934401"], ["updated_at", "2017-11-17 16:10:53.934401"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 87ms (Views: 0.3ms | ActiveRecord: 8.8ms)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-15 19:30:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.783434"], ["updated_at", "2017-11-17 16:11:07.783434"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-16 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.790777"], ["updated_at", "2017-11-17 16:11:07.790777"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-17 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.794067"], ["updated_at", "2017-11-17 16:11:07.794067"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-18 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.797420"], ["updated_at", "2017-11-17 16:11:07.797420"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-19 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.800924"], ["updated_at", "2017-11-17 16:11:07.800924"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-20 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.804245"], ["updated_at", "2017-11-17 16:11:07.804245"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "dinners" ("starts_at", "location", "host_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2017-11-21 19:00:00"], ["location", "490 West End Ave"], ["host_id", 1], ["created_at", "2017-11-17 16:11:07.807606"], ["updated_at", "2017-11-17 16:11:07.807606"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 1], ["created_at", "2017-11-17 16:11:07.833456"], ["updated_at", "2017-11-17 16:11:07.833456"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mAttendeeDinner Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "attendee_dinners" WHERE "attendee_dinners"."attendee_id" = $1 AND "attendee_dinners"."dinner_id" = $2 LIMIT $3[0m  [["attendee_id", 2], ["dinner_id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "attendee_dinners" ("attendee_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["dinner_id", 4], ["created_at", "2017-11-17 16:11:07.847416"], ["updated_at", "2017-11-17 16:11:07.847416"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mInvite Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "invites" WHERE "invites"."invited_id" = $1 AND "invites"."dinner_id" = $2 LIMIT $3[0m  [["invited_id", 2], ["dinner_id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "invites" ("invited_id", "dinner_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["invited_id", 2], ["dinner_id", 3], ["created_at", "2017-11-17 16:11:07.863981"], ["updated_at", "2017-11-17 16:11:07.863981"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 1], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.884063"], ["updated_at", "2017-11-17 16:11:07.884063"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 2], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.888518"], ["updated_at", "2017-11-17 16:11:07.888518"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 3], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.891915"], ["updated_at", "2017-11-17 16:11:07.891915"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 4], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.894866"], ["updated_at", "2017-11-17 16:11:07.894866"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 5], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.897728"], ["updated_at", "2017-11-17 16:11:07.897728"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 6], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.900832"], ["updated_at", "2017-11-17 16:11:07.900832"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mDinner Load (0.1ms)[0m  [1m[34mSELECT  "dinners".* FROM "dinners" WHERE "dinners"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "recipes" ("dinner_id", "source", "name", "image_url", "recipe_url", "ingredients", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["dinner_id", 7], ["source", "David Lebovitz"], ["name", "Teriyaki Chicken"], ["image_url", "https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg"], ["recipe_url", "http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/"], ["ingredients", "1/2 cup (125ml) mirin; 1/2 cup (125ml) soy sauce; One 2-inch (5cm) piece of fresh ginger, peeled and grated; 2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"], ["created_at", "2017-11-17 16:11:07.903801"], ["updated_at", "2017-11-17 16:11:07.903801"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:11:22 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+Completed 500 Internal Server Error in 67ms (ActiveRecord: 8.3ms)
+
+
+  
+NameError (undefined local variable or method `each' for #<Dinner:0x007fee3b3aff08>):
+  
+app/models/dinner.rb:14:in `all_info'
+app/controllers/dinners_controller.rb:10:in `block in index'
+app/controllers/dinners_controller.rb:9:in `index'
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:12:16 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.6ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.4ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 133ms (Views: 52.3ms | ActiveRecord: 10.4ms)
+
+
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:14:48 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.5ms)
+
+
+  
+NameError (undefined local variable or method `map' for #<Dinner:0x007fee41813440>
+Did you mean?  tap):
+  
+app/models/dinner.rb:14:in `all_info'
+app/controllers/dinners_controller.rb:10:in `block in index'
+app/controllers/dinners_controller.rb:9:in `index'
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:15:13 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 78ms (Views: 24.2ms | ActiveRecord: 5.5ms)
+
+
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:16:22 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 0.6ms)
+
+
+  
+NameError (undefined local variable or method `each' for #<Dinner:0x007fee3b79db60>):
+  
+app/models/dinner.rb:14:in `all_info'
+app/controllers/dinners_controller.rb:10:in `block in index'
+app/controllers/dinners_controller.rb:9:in `index'
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:16:57 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.4ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 82ms (Views: 8.0ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:17:28 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 79ms (Views: 8.4ms | ActiveRecord: 5.4ms)
+
+
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:17:47 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 500 Internal Server Error in 61ms (ActiveRecord: 0.8ms)
+
+
+  
+NoMethodError (undefined method `ingredient_list=' for #<Recipe:0x007fee3b4c6248>
+Did you mean?  ingredients=):
+  
+app/models/dinner.rb:15:in `block in all_info'
+app/models/dinner.rb:14:in `all_info'
+app/controllers/dinners_controller.rb:10:in `block in index'
+app/controllers/dinners_controller.rb:9:in `index'
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:19:58 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 0.8ms)
+
+
+  
+NameError (undefined local variable or method `recipe' for #<Recipe:0x007fee3d1361a8>
+Did you mean?  recipe_url):
+  
+app/models/recipe.rb:7:in `parse_recipe'
+app/models/dinner.rb:15:in `block in all_info'
+app/models/dinner.rb:14:in `all_info'
+app/controllers/dinners_controller.rb:10:in `block in index'
+app/controllers/dinners_controller.rb:9:in `index'
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:20:39 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 84ms (Views: 7.8ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/dinners?auth_token=AWddtVUGeh4EKyJKqAFKYk9Y" for 127.0.0.1 at 2017-11-17 11:21:00 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"AWddtVUGeh4EKyJKqAFKYk9Y"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "AWddtVUGeh4EKyJKqAFKYk9Y"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.2ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 1]]
+  [1m[36mRecipe Load (0.4ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.1ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 7]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.3ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 2]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 5]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 6]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 7]]
+Completed 200 OK in 83ms (Views: 5.7ms | ActiveRecord: 4.4ms)
+
+
+Started GET "/dinners?auth_token=BDP49YeYAegMtrFW71pUmCcJ" for 127.0.0.1 at 2017-11-17 11:21:59 -0500
+Processing by DinnersController#index as */*
+  Parameters: {"auth_token"=>"BDP49YeYAegMtrFW71pUmCcJ"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "BDP49YeYAegMtrFW71pUmCcJ"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.7ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" WHERE "dinners"."host_id" = $1[0m  [["host_id", 2]]
+  [1m[36mDinner Load (0.8ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "attendee_dinners" ON "dinners"."id" = "attendee_dinners"."dinner_id" WHERE "attendee_dinners"."attendee_id" = $1[0m  [["attendee_id", 2]]
+  [1m[36mRecipe Load (0.6ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 4]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 4]]
+Completed 200 OK in 18ms (Views: 2.9ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/dinners/invited?auth_token=BDP49YeYAegMtrFW71pUmCcJ" for 127.0.0.1 at 2017-11-17 11:23:35 -0500
+Processing by DinnersController#index_invites as */*
+  Parameters: {"auth_token"=>"BDP49YeYAegMtrFW71pUmCcJ"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "BDP49YeYAegMtrFW71pUmCcJ"], ["LIMIT", 1]]
+  [1m[36mDinner Load (0.5ms)[0m  [1m[34mSELECT "dinners".* FROM "dinners" INNER JOIN "invites" ON "dinners"."id" = "invites"."dinner_id" WHERE "invites"."invited_id" = $1[0m  [["invited_id", 2]]
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" WHERE "recipes"."dinner_id" = $1[0m  [["dinner_id", 3]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users"."id", "users"."name", "users"."email", "users"."avatar" FROM "users" INNER JOIN "attendee_dinners" ON "users"."id" = "attendee_dinners"."attendee_id" WHERE "attendee_dinners"."dinner_id" = $1[0m  [["dinner_id", 3]]
+Completed 200 OK in 16ms (Views: 1.3ms | ActiveRecord: 3.3ms)
+
+

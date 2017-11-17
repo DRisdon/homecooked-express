@@ -40,6 +40,15 @@ class User < ApplicationRecord
    }
  end
 
+ def json_hash_no_token
+   {
+     :name => self.name,
+     :email => self.email,
+     :id => self.id,
+     :avatar => self.avatar
+   }
+ end
+
  private
 
  def downcase_email

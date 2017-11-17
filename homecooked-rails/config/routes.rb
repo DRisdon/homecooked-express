@@ -19,4 +19,10 @@ Rails.application.routes.draw do
   delete "/dinners/:id/invites/:user_id", to: "dinners#remove_invite"
   delete "/dinners/:id/attendees/:user_id", to: "dinners#remove_attendee"
 
+  get "recipes/:id", to: "recipes#show"
+  get "recipes/search/:query", to: "recipes#search"
+  post "recipes", to: "recipes#create"
+  put "recipes/:id", to: "recipes#update"
+  delete "recipes/:id", to: "recipes#delete"
+
 end
