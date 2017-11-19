@@ -6,7 +6,7 @@ class DinnersController < ApplicationController
     puts "user: #{@current_user.json_hash[:id]}"
     hosted_dinners = []
     attended_dinners = []
-    @hosted_dinners = @current_user.hosted_dinners.each do |dinner|
+    @hosted_dinners = @current_user.hosted_dinners.order(starts_at: :asc).each do |dinner|
       hosted_dinners << dinner.all_info
     end
     @attended_dinners = @current_user.attended_dinners.each do |dinner|

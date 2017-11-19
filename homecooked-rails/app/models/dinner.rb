@@ -12,7 +12,7 @@ class Dinner < ApplicationRecord
 
   def all_info
     recipes = self.recipes.map do |recipe|
-      recipe.parse_recipe
+      recipe.parse_recipe_no_ingredients
     end
     {
       :info => self,
