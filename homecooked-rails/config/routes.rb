@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
 
   get "/dinners", to: "dinners#index"
+  get "/dinners/past", to: "dinners#index_past"
   get "/dinners/invited", to: "dinners#index_invites"
   get "/dinners/hosting", to: "dinners#index_hosting"
   get "/dinners/attending", to: "dinners#index_attending"
