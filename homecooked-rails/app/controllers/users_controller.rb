@@ -38,6 +38,12 @@ class UsersController < ApplicationController
     }
   end
 
+  def search
+    users = User.where('name LIKE ? OR name LIKE ? OR name LIKE ?', "%#{params[:query]}%", "%#{params[:query].split(/(\W)/).map(&:capitalize).join}%", "%#{params[:query].downcase}%").limit(5)
+    @users = users.map { |user| user.json_hash_no_token }
+    render :json => @users
+  end
+
   private
 
   def user_params

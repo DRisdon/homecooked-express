@@ -18,6 +18,7 @@ class Dinner < ApplicationRecord
       :info => self,
       :host => self.host.json_hash_no_token,
       :attendees => self.attendees.select(:id, :name, :email, :avatar),
+      :invited => self.invited.select(:id, :name, :email, :avatar),
       :recipes => recipes
     }
   end
