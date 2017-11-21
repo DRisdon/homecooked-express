@@ -1,7 +1,7 @@
 # Homecooked
 # A meal planning app
  This app allows a user to plan out their meals by choosing recipes and inviting friends.
- Try it [here](http://homecooked.surge.sh)
+ Try it [here](http://homecooked.surge.sh). See the React front-end app [here](https://github.com/DRisdon/homecooked-react).
 
 ## Tech
 - Ruby on Rails
