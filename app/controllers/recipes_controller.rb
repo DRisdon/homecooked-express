@@ -17,7 +17,7 @@ class RecipesController < ApplicationController
   end
 
   def search
-    url = "https://api.edamam.com/search?q=#{params[:query]}&app_id=#{ENV['APP_ID']}&app_key=#{ENV['APP_KEY']}"
+    url = "https://api.edamam.com/search?q=#{params[:query]}&app_id=0c96c5eb&app_key=ed3014ac0e591bb1b97fa37fb700ef1e"
     results = HTTParty.get(url)
     results = JSON.parse(results.body)
     @results = results["hits"].map do |result|

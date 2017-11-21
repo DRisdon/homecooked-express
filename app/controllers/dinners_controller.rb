@@ -6,10 +6,10 @@ class DinnersController < ApplicationController
     puts "user: #{@current_user.json_hash[:id]}"
     hosted_dinners = []
     attended_dinners = []
-    @hosted_dinners = @current_user.hosted_dinners.where('starts_at > ?', "#{Time.now}").order(starts_at: :asc).each do |dinner|
+    @hosted_dinners = @current_user.hosted_dinners.where('starts_at >= ?', "#{Time.now}").order(starts_at: :asc).each do |dinner|
       hosted_dinners << dinner.all_info
     end
-    @attended_dinners = @current_user.attended_dinners.where('starts_at > ?', "#{Time.now}").order(starts_at: :asc).each do |dinner|
+    @attended_dinners = @current_user.attended_dinners.where('starts_at >= ?', "#{Time.now}").order(starts_at: :asc).each do |dinner|
       attended_dinners << dinner.all_info
     end
     render json: {
