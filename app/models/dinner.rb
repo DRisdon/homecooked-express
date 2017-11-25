@@ -1,10 +1,10 @@
 class Dinner < ApplicationRecord
-  belongs_to :host, class_name: "User"
-  has_many :attendee_dinners, foreign_key: "dinner_id"
-  has_many :attendees, through: :attendee_dinners, source: :attendee
-  has_many :invites, foreign_key: "dinner_id"
-  has_many :invited, through: :invites, source: :invited
-  has_many :recipes
+  belongs_to :host, class_name: "User" # has 1 host
+  has_many :attendee_dinners, foreign_key: "dinner_id" # has many attendee_dinners join entries, with the dinner_id key
+  has_many :attendees, through: :attendee_dinners, source: :attendee # has many attendees through the attendee_dinners table
+  has_many :invites, foreign_key: "dinner_id" # has many invites join entries, on a dinner_id key
+  has_many :invited, through: :invites, source: :invited # has many invited users through the invites table
+  has_many :recipes # has many recipes
 
   validates :starts_at, presence: true
   validates :location, presence: true
