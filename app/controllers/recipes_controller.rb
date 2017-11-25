@@ -1,21 +1,25 @@
 class RecipesController < ApplicationController
+  # show a single recipe
   def show
     recipe = Recipe.find(params[:id]).parse_recipe
     render json: recipe
   end
 
+  # create a new recipe
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.save
     render json: @recipe
   end
 
+  # update a recipe (currently unused)
   def update
     @recipe = Recipe.find(params[:id])
     @recipe.update(recipe_params)
     render json: @recipe
   end
 
+  # search for a recipe through the api
   def search
     url = "https://api.edamam.com/search?q=#{params[:query]}&app_id=0c96c5eb&app_key=ed3014ac0e591bb1b97fa37fb700ef1e"
     results = HTTParty.get(url)
@@ -32,6 +36,7 @@ class RecipesController < ApplicationController
     render :json => @results
   end
 
+  # delete a recipe from the DB
   def delete
     @recipe = Recipe.find(params[:id])
     @recipe.delete
@@ -42,6 +47,7 @@ class RecipesController < ApplicationController
 
   private
 
+  # permitted params for recipe creation
   def recipe_params
     params.permit(:name, :source, :dinner_id, :recipe_url, :recipe_text, :image_url, :ingredients)
   end
