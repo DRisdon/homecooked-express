@@ -27,4 +27,8 @@ Rails.application.routes.draw do
   put "recipes/:id", to: "recipes#update"
   delete "recipes/:id", to: "recipes#delete"
 
+  post "dinners/:id/comments", to: "comments#create"
+  put "dinners/:dinner_id/comments/:comment_id", to: "comments#update"
+  delete "dinners/:dinner_id/comments/:comment:id", to: "comments#delete"
+
 end
