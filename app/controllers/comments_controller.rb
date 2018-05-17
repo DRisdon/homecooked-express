@@ -17,12 +17,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  # update comment (content only)
   def update
     @comment = Comment.find(params[:comment_id])
     @comment.update(comment_params)
     render json: @comment
   end
 
+  # delete comment
   def delete
     @comment = Comment.find(params[:comment_id])
     @comment.delete
