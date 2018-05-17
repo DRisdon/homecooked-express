@@ -29,6 +29,6 @@ Rails.application.routes.draw do
 
   post "dinners/:id/comments", to: "comments#create"
   put "dinners/:dinner_id/comments/:comment_id", to: "comments#update"
-  delete "dinners/:dinner_id/comments/:comment:id", to: "comments#delete"
+  delete "dinners/:dinner_id/comments/:comment_id", to: "comments#delete"
 
 end
