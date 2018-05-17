@@ -9,6 +9,7 @@ class Comment < ApplicationRecord
   # returns a hash that includes info about the poster
   def comment_info
     {
+      :id => self.id,
       :user => self.user.json_hash_no_token,
       :dinner_id => self.dinner_id,
       :content => self.content
