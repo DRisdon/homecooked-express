@@ -23,6 +23,12 @@ class CommentsController < ApplicationController
     render json: @comment
   end
 
+  def delete
+    @comment = Comment.find(params[:comment_id])
+    @comment.delete
+    render json: {message: "comment deleted"}
+  end
+
   private
 
   def comment_params
