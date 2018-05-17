@@ -6,7 +6,6 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.user_id = @current_user.json_hash[:id]
     @comment.dinner_id = params[:id]
-    @comment.dinner_id =
     if @comment.valid?
       @comment.save
       render json: @comment.comment_info
